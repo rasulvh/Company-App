@@ -15,7 +15,7 @@ static void Menus()
     {
         ConsoleColor.Cyan.WriteConsole("Select one option");
         Console.WriteLine("-----------------");
-        ConsoleColor.Cyan.WriteConsole("Department options: 1.Create, 2.Delete, 3.Update, 4.Get Department by Id");
+        ConsoleColor.Cyan.WriteConsole("Department options: 1.Create, 2.Delete, 3.Update, 4.Get department by id, 5.Get all, 6.Search");
 
         Option:  string optionStr = Console.ReadLine();
         int option;
@@ -35,6 +35,12 @@ static void Menus()
                     break;
                 case 4:
                     departmentController.GetById();
+                    break;
+                case 5:
+                    departmentController.GetAll();
+                    break;
+                case 6:
+                    departmentController.Search();
                     break;
                 default:
                     ConsoleColor.Red.WriteConsole("Please select true option: ");

@@ -126,5 +126,34 @@ namespace Company_App.Controller
                 ConsoleColor.Red.WriteConsole(ex.Message);
             }
         }
+
+        public void GetAll()
+        {
+            try
+            {
+                foreach (var item in _departmentService.GetAll())
+                {
+                    ConsoleColor.Green.WriteConsole($"Department Id : {item.Id}, Department Name : {item.Name}, Department Capacity: {item.Capacity}");
+                }
+            }
+            catch (Exception ex)
+            {
+                ConsoleColor.Red.WriteConsole(ex.Message);
+            }
+        }
+
+        public void Search()
+        {
+            ConsoleColor.DarkMagenta.WriteConsole("Add library name");
+
+            string searchText = Console.ReadLine();
+
+            var result = _departmentService.Search(searchText);
+
+            foreach (var item in result)
+            {
+                ConsoleColor.Green.WriteConsole($"Id: {item.Id}, Name: {item.Name}, Seat count: {item.Capacity}");
+            }
+        }
     }
 }

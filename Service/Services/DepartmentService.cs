@@ -43,7 +43,7 @@ namespace Service.Services
 
         public List<Department> GetAll()
         {
-            throw new NotImplementedException();
+            return _repo.GetAll(null);
         }
 
         public Department GetById(int? id)
@@ -59,7 +59,7 @@ namespace Service.Services
 
         public List<Department> Search(string searchText)
         {
-            throw new NotImplementedException();
+            return _repo.GetAll(m => m.Name.ToLower().Contains(searchText.ToLower()));
         }
 
         public Department Update(int id, Department library)

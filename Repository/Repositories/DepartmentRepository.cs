@@ -30,13 +30,12 @@ namespace Repository.Repositories
 
         public List<Department> GetAll(Predicate<Department> predicate)
         {
-            throw new NotImplementedException();
+            return predicate == null ? AppDbContext<Department>.datas : AppDbContext<Department>.datas.FindAll(predicate);
         }
 
         public void Update(Department entity)
         {
-            //if(entity is null) throw new ArgumentNullException();
-            //AppDbContext<Department>.datas.
+            throw new NotImplementedException();
         }
     }
 }
