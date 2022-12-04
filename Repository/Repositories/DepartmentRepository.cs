@@ -35,7 +35,7 @@ namespace Repository.Repositories
 
         public void Update(Department entity)
         {
-            throw new NotImplementedException();
+            
         }
     }
 }

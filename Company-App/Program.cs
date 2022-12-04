@@ -10,12 +10,14 @@ Menus();
 static void Menus()
 {
     DepartmentController departmentController = new DepartmentController();
+    EmployeeController employeeController = new EmployeeController();
 
     while (true)
     {
         ConsoleColor.Cyan.WriteConsole("Select one option");
         Console.WriteLine("-----------------");
         ConsoleColor.Cyan.WriteConsole("Department options: 1.Create, 2.Delete, 3.Update, 4.Get department by id, 5.Get all, 6.Search");
+        ConsoleColor.Cyan.WriteConsole("Employee options: 7.Create");
 
         Option:  string optionStr = Console.ReadLine();
         int option;
@@ -41,6 +43,9 @@ static void Menus()
                     break;
                 case 6:
                     departmentController.Search();
+                    break;
+                case 7:
+                    employeeController.Add();
                     break;
                 default:
                     ConsoleColor.Red.WriteConsole("Please select true option: ");
