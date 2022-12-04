@@ -95,16 +95,30 @@ namespace Company_App.Controller
 
         public void GetById()
         {
+            ConsoleColor.DarkYellow.WriteConsole("Write department id: ");
+        Id: string idStr = Console.ReadLine();
+
             try
             {
-                ConsoleColor.DarkYellow.WriteConsole("Write department id: ");
-                string idStr = Console.ReadLine();
                 int id;
                 bool isParseId = int.TryParse((string)idStr, out id);
 
                 if (isParseId) 
                 {
+                    var result = _departmentService.GetById(id);
 
+                    if (result is null)
+                    {
+                        ConsoleColor.Red.WriteConsole("Department not found, please try again: ");
+                        goto Id;
+                    }
+
+                    ConsoleColor.Green.WriteConsole($"Department Id : {result.Id}, Department Name : {result.Name}, Department Capacity: {result.Capacity}");
+                }
+                else
+                {
+                    ConsoleColor.Red.WriteConsole("Please write correctly: ");
+                    goto Id;
                 }
             }
             catch (Exception ex)

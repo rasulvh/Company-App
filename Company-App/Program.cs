@@ -31,6 +31,11 @@ static void Menus()
                 case 2:
                     departmentController.Delete();
                     break;
+                case 3:
+                    break;
+                case 4:
+                    departmentController.GetById();
+                    break;
                 default:
                     ConsoleColor.Red.WriteConsole("Please select true option: ");
                     goto Option;
