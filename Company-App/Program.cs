@@ -13,7 +13,8 @@ static void Menus()
 
     while (true)
     {
-        ConsoleColor.Cyan.WriteConsole("Select one option: ");
+        ConsoleColor.Cyan.WriteConsole("Select one option");
+        Console.WriteLine("-----------------");
         ConsoleColor.Cyan.WriteConsole("Department options: 1.Create");
 
         Option:  string optionStr = Console.ReadLine();

@@ -23,7 +23,13 @@ namespace Company_App.Controller
             try
             {
                 ConsoleColor.DarkYellow.WriteConsole("Add department name: ");
-                string name = Console.ReadLine();
+                DepName: string name = Console.ReadLine();
+
+                if (name is "")
+                {
+                    ConsoleColor.Red.WriteConsole("Department name cannot be empty: ");
+                    goto DepName;
+                }
 
                 ConsoleColor.DarkYellow.WriteConsole("Add department capacity: ");
                 Capacity:  string capacityStr = Console.ReadLine();
@@ -37,6 +43,7 @@ namespace Company_App.Controller
                         Name = name,
                         Capacity = capacity
                     };
+
 
                     var result = _departmentService.Create(department);
 
