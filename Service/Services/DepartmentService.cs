@@ -1,9 +1,13 @@
 ﻿using Domain.Models;
+using Microsoft.VisualBasic;
+using Repository.Helpers.Exceptions;
 using Repository.Repositories;
 using Service.Services.Interfaces;
+using Repository.Helpers.Constants;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -29,7 +33,13 @@ namespace Service.Services
 
         public void Delete(int? id)
         {
-            throw new NotImplementedException();
+            if (id == null) throw new ArgumentNullException();
+
+            Department department = GetById(id);
+
+            if (department == null) throw new NotFoundException("Department not found");
+
+            _repo.Delete(department);
         }
 
         public List<Department> GetAll()
@@ -39,7 +49,8 @@ namespace Service.Services
 
         public Department GetById(int? id)
         {
-            throw new NotImplementedException();
+            if(id is null) throw new ArgumentNullException();
+            return _repo.Get(m=> m.Id == id);
         }
 
         public Department GetByName(string name)

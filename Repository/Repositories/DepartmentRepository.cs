@@ -19,12 +19,13 @@ namespace Repository.Repositories
 
         public void Delete(Department entity)
         {
-            throw new NotImplementedException();
+            if(entity is null) throw new ArgumentNullException();
+            AppDbContext<Department>.datas.Remove(entity);
         }
 
         public Department Get(Predicate<Department> predicate)
         {
-            throw new NotImplementedException();
+            return AppDbContext<Department>.datas.Find(predicate);
         }
 
         public List<Department> GetAll(Predicate<Department> predicate)
@@ -34,7 +35,8 @@ namespace Repository.Repositories
 
         public void Update(Department entity)
         {
-            throw new NotImplementedException();
+            //if(entity is null) throw new ArgumentNullException();
+            //AppDbContext<Department>.datas.
         }
     }
 }

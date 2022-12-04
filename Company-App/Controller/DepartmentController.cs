@@ -62,5 +62,55 @@ namespace Company_App.Controller
                 ConsoleColor.Red.WriteConsole(ex.Message);
             }
         }
+
+        public void Delete()
+        {
+            ConsoleColor.DarkYellow.WriteConsole("Write department id: ");
+        Id: string idStr = Console.ReadLine();
+
+            try
+            {
+
+                int id;
+                bool isParseId = int.TryParse(idStr, out id);
+
+                if (isParseId) 
+                {
+                    _departmentService.Delete(id);
+
+                    ConsoleColor.Green.WriteConsole("Successfully deleted");
+                }
+                else
+                {
+                    ConsoleColor.Red.WriteConsole("Please write correct id: ");
+                    goto Id;
+                }
+            }
+            catch (Exception ex)
+            {
+                ConsoleColor.Red.WriteConsole(ex.Message);
+                goto Id;
+            }
+        }
+
+        public void GetById()
+        {
+            try
+            {
+                ConsoleColor.DarkYellow.WriteConsole("Write department id: ");
+                string idStr = Console.ReadLine();
+                int id;
+                bool isParseId = int.TryParse((string)idStr, out id);
+
+                if (isParseId) 
+                {
+
+                }
+            }
+            catch (Exception ex)
+            {
+                ConsoleColor.Red.WriteConsole(ex.Message);
+            }
+        }
     }
 }
