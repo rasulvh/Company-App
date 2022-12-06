@@ -163,7 +163,7 @@ namespace Company_App.Controller
                 {
                     var result = _employeeService.GetById(id);
 
-                    ConsoleColor.Green.WriteConsole($"Employee Id: {result.Id}, Name: {employee.Name}, Surname: {employee.Surname}, Age: {employee.Age}, Address{employee.Address}, Department Id: {employee.Department.Id}");
+                    ConsoleColor.Green.WriteConsole($"Employee Id: {result.Id}, Name: {result.Name}, Surname: {result.Surname}, Age: {result.Age}, Address{result.Address}, Department Id: {result.Department.Id}");
                 }
                 else
                 {

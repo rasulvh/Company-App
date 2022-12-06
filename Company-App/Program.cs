@@ -17,7 +17,7 @@ static void Menus()
         ConsoleColor.Cyan.WriteConsole("Select one option");
         Console.WriteLine("-----------------");
         ConsoleColor.Cyan.WriteConsole("Department options: 1.Create, 2.Delete, 3.Update, 4.Get department by id, 5.Get all, 6.Search");
-        ConsoleColor.Cyan.WriteConsole("Employee options: 7.Create, 8.Delate, 9.Update, 10.Get by age, 11.Get by id, 12.Get by department id, 13.Get all by department name, 15.Get count");
+        ConsoleColor.Cyan.WriteConsole("Employee options: 7.Create, 8.Delate, 9.Update, 10.Get by age, 11.Get by id, 12.Get by department id, 13.Get all by department name, 14.Search, 15.Get count");
 
         Option:  string optionStr = Console.ReadLine();
         int option;
@@ -56,6 +56,7 @@ static void Menus()
                     employeeController.GetByAge();
                     break;
                 case 11:
+                    employeeController.GetById();
                     break;
                 case 12:
                     break;
