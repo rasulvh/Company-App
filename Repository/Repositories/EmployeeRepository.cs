@@ -10,6 +10,8 @@ namespace Repository.Repositories
 {
     public class EmployeeRepository
     {
+        Employee employee = new Employee();
+
         public void Add(Employee entity)
         {
             if (entity is null) throw new ArgumentNullException();
@@ -30,7 +32,12 @@ namespace Repository.Repositories
         }
         public void Update(Employee entity) 
         {
+            entity.Name = employee.Name;
+            entity.Surname = employee.Surname;
+            entity.Address = employee.Address;
+            entity.Age = employee.Age;
 
+            Console.WriteLine($"Name: {entity.Name}, Surname: {entity.Surname}, Age: {entity.Age}, Address: {entity.Address}");
         }
     }
 }

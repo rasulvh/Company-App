@@ -33,9 +33,9 @@ namespace Repository.Repositories
             return predicate == null ? AppDbContext<Department>.datas : AppDbContext<Department>.datas.FindAll(predicate);
         }
 
-        public Department Update(Department entity)
+        public List<Department> Update(int id, Department entity)
         {
-            return AppDbContext<Department>.datas.Find(m => m.Id == entity.Id);
+            return GetAll(m => m.Id == id);
         }
 
     }

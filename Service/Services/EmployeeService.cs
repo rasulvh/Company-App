@@ -44,10 +44,6 @@ namespace Service.Services
         {
             if(age is null) throw new ArgumentNullException();
 
-            Employee employee = GetById(age);
-
-            if (employee is null) throw new NotFoundException("Employee not found");
-
             return _repo.GetAll(m => m.Age == age);
         }
 

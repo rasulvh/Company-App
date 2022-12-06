@@ -79,7 +79,13 @@ namespace Company_App.Controller
                         Department = _departmentService.GetById(departmentId)
                     };
 
-                    ConsoleColor.Green.WriteConsole($"Id: {employee.Id}, Name: {employee.Name}, Surname: {employee.Surname}, Age: {employee.Age}, Address: {employee.Address}, Department Id: {employee.Department.Id}");
+                    _employeeService.Create(employee);
+                    ConsoleColor.Green.WriteConsole($"Employee Id: {employee.Id}, Name: {employee.Name}, Surname: {employee.Surname}, Age: {employee.Age}, Address: {employee.Address}, Department Id: {employee.Department.Id}");
+                }
+                else 
+                {
+                    ConsoleColor.Red.WriteConsole("Please write id correctly: ");
+                    goto EmpDepartment;
                 }
             }
             catch (Exception ex)
@@ -88,16 +94,43 @@ namespace Company_App.Controller
             }
         }
 
-        public void GetByAge()
+        public void Delete()
         {
+            ConsoleColor.DarkYellow.WriteConsole("Write employee id: ");
+        Id: string idStr = Console.ReadLine();
+            int id;
+            bool isParseId = int.TryParse(idStr, out id);
+
             try
             {
-                ConsoleColor.DarkYellow.WriteConsole("Write employee age: ");
+                if (isParseId)
+                {
+                    _employeeService.Delete(id);
 
-            Age: string ageStr = Console.ReadLine();
-                int age;
-                bool isParseAge = int.TryParse(ageStr, out age);
+                    ConsoleColor.Green.WriteConsole("Successfully deleted");
+                }
+                else
+                {
+                    ConsoleColor.Red.WriteConsole("Please write correct id: ");
+                    goto Id;
+                }
+            }
+            catch (Exception ex)
+            {
+                ConsoleColor.Red.WriteConsole(ex.Message);
+                goto Id;
+            }
+        }
 
+        public void GetByAge()
+        {
+            ConsoleColor.DarkYellow.WriteConsole("Write employee age: ");
+        Age: string ageStr = Console.ReadLine();
+            int age;
+            bool isParseAge = int.TryParse(ageStr, out age);
+
+            try
+            {
                 if (isParseAge)
                 {
                     foreach (var item in _employeeService.GetByAge(age))
@@ -109,6 +142,33 @@ namespace Company_App.Controller
                 {
                     ConsoleColor.Red.WriteConsole("Please write correct age: ");
                     goto Age;
+                }
+            }
+            catch (Exception ex)
+            {
+                ConsoleColor.Red.WriteConsole(ex.Message);
+            }
+        }
+
+        public void GetById()
+        {
+            ConsoleColor.DarkYellow.WriteConsole("Write employee id: ");
+        Id: string idStr = Console.ReadLine();
+            int id;
+            bool isParseId = int.TryParse(idStr, out id);
+            
+            try
+            {
+                if (isParseId)
+                {
+                    var result = _employeeService.GetById(id);
+
+                    ConsoleColor.Green.WriteConsole($"Employee Id: {result.Id}, Name: {employee.Name}, Surname: {employee.Surname}, Age: {employee.Age}, Address{employee.Address}, Department Id: {employee.Department.Id}");
+                }
+                else
+                {
+                    ConsoleColor.Red.WriteConsole("Please write id correctly: ");
+                    goto Id;
                 }
             }
             catch (Exception ex)

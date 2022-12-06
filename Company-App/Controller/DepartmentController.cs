@@ -156,53 +156,44 @@ namespace Company_App.Controller
             }
         }
 
-        public void Update()
-        {
-            Department department = new Department();
+        //public void Update()
+        //{
+        //    ConsoleColor.DarkYellow.WriteConsole("Write department id: ");
+        //Id: string idStr = Console.ReadLine();
+        //    int id;
+        //    bool isParseId = int.TryParse(idStr, out id);
 
-            try
-            {
-                ConsoleColor.DarkYellow.WriteConsole("Write department id: ");
-                string idStr = Console.ReadLine();
-                int id;
-                bool isParseId = int.TryParse(idStr, out id);
+        //    try
+        //    {
+        //        ConsoleColor.DarkYellow.WriteConsole("Write new department name: ");
+        //        string name = Console.ReadLine();
 
-                if (isParseId)
-                {
-                    ConsoleColor.DarkYellow.WriteConsole("Write new department name (if you don't want to update please leave here empty):");
-                    string depName = Console.ReadLine();
-                    ConsoleColor.DarkYellow.WriteConsole("Write new department capacity (if you don't want to update please leave here empty):");
-                    Capacity: string depCapacityStr = Console.ReadLine();
-                    int depCapacity;
-                    bool isParseCapacity = int.TryParse(depCapacityStr, out depCapacity);
+        //        ConsoleColor.DarkYellow.WriteConsole("Write new department capacity: ");
+        //    Capacity: string capacityStr = Console.ReadLine();
+        //        int capacity;
+        //        bool isParseCapacity = int.TryParse(capacityStr, out capacity);
 
-                    if (isParseCapacity)
-                    {
-                        if (depName is not "" || depName is not null)
-                        {
-                            department.Name = depName;
-                        }
+        //        if (name is null)
+        //        {
 
-                        if (depCapacity is not 0)
-                        {
-                            department.Capacity = depCapacity;
-                        }
+        //        }
 
-                        ConsoleColor.Green.WriteConsole($"Id: {department.Id}, Name: {department.Name}, Capacity: {department.Capacity}");
+        //        Department department = new()
+        //        {
+        //            Name = name,
+        //            Capacity = capacity
+        //        };
 
-                        _departmentService.Create(department);
-                    }
-                    else
-                    {
-                        ConsoleColor.Red.WriteConsole("Please write capacity correctly: ");
-                        goto Capacity;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                ConsoleColor.Red.WriteConsole(ex.Message);
-            }
-        }
+        //        _departmentService.Create(department);
+
+
+        //        var result = _departmentService.Update();
+        //    }
+        //    catch (Exception)
+        //    {
+
+        //        throw;
+        //    }
+        //}
     }
 }

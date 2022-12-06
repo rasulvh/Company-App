@@ -1,5 +1,6 @@
 ﻿using Domain.Models;
 using Microsoft.VisualBasic;
+using Repository.Data;
 using Repository.Helpers.Exceptions;
 using Repository.Repositories;
 using Service.Services.Interfaces;
@@ -52,19 +53,14 @@ namespace Service.Services
             return _repo.Get(m=> m.Id == id);
         }
 
-        public Department GetByName(string name)
-        {
-            throw new NotImplementedException();
-        }
-
         public List<Department> Search(string searchText)
         {
             return _repo.GetAll(m => m.Name.ToLower().Contains(searchText.ToLower()));
         }
 
-        public Department Update(Department department)
+        public List<Department> Update(int id, Department department)
         {
-            return _repo.Update(department);
+            return _repo.Update(id, department);
         }
     }
 }
