@@ -1,4 +1,5 @@
 ﻿using Domain.Models;
+using Repository.Data;
 using Repository.Helpers.Exceptions;
 using Repository.Repositories;
 using Service.Services.Interfaces;
@@ -41,7 +42,13 @@ namespace Service.Services
 
         public List<Employee> GetByAge(int? age)
         {
-            throw new NotImplementedException();
+            if(age is null) throw new ArgumentNullException();
+
+            Employee employee = GetById(age);
+
+            if (employee is null) throw new NotFoundException("Employee not found");
+
+            return _repo.GetAll(m => m.Age == age);
         }
 
         public List<Employee> GetByDepartmentId(Department department)

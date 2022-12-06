@@ -12,10 +12,12 @@ namespace Company_App.Controller
     public class EmployeeController
     {
         Employee employee = new Employee();
+        private readonly EmployeeService _employeeService;
         private readonly DepartmentService _departmentService;
 
         public EmployeeController()
         {
+            _employeeService= new EmployeeService();
             _departmentService= new DepartmentService();
         }
 
@@ -34,7 +36,7 @@ namespace Company_App.Controller
 
                 ConsoleColor.DarkYellow.WriteConsole("Add employee surname: ");
             EmpSurname: string surname = Console.ReadLine();
-
+                
                 if (surname is "")
                 {
                     ConsoleColor.Red.WriteConsole("Employee surname cannot be empty: ");
@@ -46,7 +48,7 @@ namespace Company_App.Controller
                 int age;
                 bool isParseAge = int.TryParse(ageStr, out age);
 
-                if (age < 20)
+                if (age < 18)
                 {
                     ConsoleColor.Red.WriteConsole("Employee age must be greater thatn 20: ");
                     goto EmpAge;
@@ -68,12 +70,45 @@ namespace Company_App.Controller
 
                 if (isParseDepartamentId)
                 {
-                    ConsoleColor.Green.WriteConsole("Employee was successfully added");
+                    Employee employee = new Employee()
+                    {
+                        Name = name,
+                        Age = age,
+                        Surname = surname,
+                        Address= address,
+                        Department = _departmentService.GetById(departmentId)
+                    };
 
-                    employee.Name = name;
-                    employee.Address = address;
-                    employee.Surname = surname;
-                    employee.Age= age;
+                    ConsoleColor.Green.WriteConsole($"Id: {employee.Id}, Name: {employee.Name}, Surname: {employee.Surname}, Age: {employee.Age}, Address: {employee.Address}, Department Id: {employee.Department.Id}");
+                }
+            }
+            catch (Exception ex)
+            {
+                ConsoleColor.Red.WriteConsole(ex.Message);
+            }
+        }
+
+        public void GetByAge()
+        {
+            try
+            {
+                ConsoleColor.DarkYellow.WriteConsole("Write employee age: ");
+
+            Age: string ageStr = Console.ReadLine();
+                int age;
+                bool isParseAge = int.TryParse(ageStr, out age);
+
+                if (isParseAge)
+                {
+                    foreach (var item in _employeeService.GetByAge(age))
+                    {
+                        ConsoleColor.Green.WriteConsole($"Id: {item.Id}, Name: {item.Name}, Surname: {item.Surname}, Age: {item.Age}, Address: {item.Address}, Department Id: {item.Department}");
+                    }
+                }
+                else
+                {
+                    ConsoleColor.Red.WriteConsole("Please write correct age: ");
+                    goto Age;
                 }
             }
             catch (Exception ex)

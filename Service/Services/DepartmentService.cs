@@ -62,9 +62,9 @@ namespace Service.Services
             return _repo.GetAll(m => m.Name.ToLower().Contains(searchText.ToLower()));
         }
 
-        public Department Update(int id, Department department)
+        public Department Update(Department department)
         {
-            throw new NotImplementedException();
+            return _repo.Update(department);
         }
     }
 }
