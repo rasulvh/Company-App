@@ -34,6 +34,7 @@ static void Menus()
                     departmentController.Delete();
                     break;
                 case 3:
+                    departmentController.Update();
                     break;
                 case 4:
                     departmentController.GetById();

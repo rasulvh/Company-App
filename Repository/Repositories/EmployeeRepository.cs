@@ -1,5 +1,6 @@
 ﻿using Domain.Models;
 using Repository.Data;
+using Repository.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Repository.Repositories
 {
-    public class EmployeeRepository
+    public class EmployeeRepository : IRepository<Employee>
     {
         Employee employee = new Employee();
 
@@ -30,14 +31,10 @@ namespace Repository.Repositories
         {
             return predicate == null ? AppDbContext<Employee>.datas : AppDbContext<Employee>.datas.FindAll(predicate);
         }
-        public void Update(Employee entity) 
-        {
-            entity.Name = employee.Name;
-            entity.Surname = employee.Surname;
-            entity.Address = employee.Address;
-            entity.Age = employee.Age;
 
-            Console.WriteLine($"Name: {entity.Name}, Surname: {entity.Surname}, Age: {entity.Age}, Address: {entity.Address}");
+        public void Update(Employee entity)
+        {
+            throw new NotImplementedException();
         }
     }
 }

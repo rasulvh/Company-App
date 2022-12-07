@@ -14,6 +14,6 @@ namespace Service.Services.Interfaces
         Department GetById(int? id);
         List<Department> GetAll();
         List<Department> Search(string searchText);
-        List<Department> Update(int id, Department department);
+        Department Update(Department department);
     }
 }

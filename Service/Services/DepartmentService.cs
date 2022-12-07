@@ -58,9 +58,10 @@ namespace Service.Services
             return _repo.GetAll(m => m.Name.ToLower().Contains(searchText.ToLower()));
         }
 
-        public List<Department> Update(int id, Department department)
+        public Department Update(Department department)
         {
-            return _repo.Update(id, department);
+            _repo.Update(department);
+            return department;
         }
     }
 }

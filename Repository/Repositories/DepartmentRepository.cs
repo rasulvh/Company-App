@@ -11,6 +11,8 @@ namespace Repository.Repositories
 {
     public class DepartmentRepository : IRepository<Department>
     {
+        Department department = new Department();
+
         public void Add(Department entity)
         {
             if (entity is null) throw new ArgumentNullException();
@@ -33,10 +35,12 @@ namespace Repository.Repositories
             return predicate == null ? AppDbContext<Department>.datas : AppDbContext<Department>.datas.FindAll(predicate);
         }
 
-        public List<Department> Update(int id, Department entity)
+        public void Update(Department entity)
         {
-            return GetAll(m => m.Id == id);
-        }
+            if(entity is null) throw new ArgumentNullException();
 
+            entity.Name = department.Name;
+            entity.Capacity = department.Capacity;
+        }
     }
 }

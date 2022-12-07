@@ -1,11 +1,7 @@
 ﻿using Domain.Models;
 using Service.Helpers;
 using Service.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Net;
 
 namespace Company_App.Controller
 {
@@ -156,44 +152,46 @@ namespace Company_App.Controller
             }
         }
 
-        //public void Update()
-        //{
-        //    ConsoleColor.DarkYellow.WriteConsole("Write department id: ");
-        //Id: string idStr = Console.ReadLine();
-        //    int id;
-        //    bool isParseId = int.TryParse(idStr, out id);
+        public void Update()
+        {
+            ConsoleColor.DarkYellow.WriteConsole("Write department id that you want to update: ");
+        Id: string idStr = Console.ReadLine();
+            int id;
+            bool isParseId = int.TryParse(idStr, out id);
 
-        //    try
-        //    {
-        //        ConsoleColor.DarkYellow.WriteConsole("Write new department name: ");
-        //        string name = Console.ReadLine();
+            try
+            {
+                ConsoleColor.DarkYellow.WriteConsole("Enter new department name: ");
+                string name = Console.ReadLine();
 
-        //        ConsoleColor.DarkYellow.WriteConsole("Write new department capacity: ");
-        //    Capacity: string capacityStr = Console.ReadLine();
-        //        int capacity;
-        //        bool isParseCapacity = int.TryParse(capacityStr, out capacity);
+                ConsoleColor.DarkYellow.WriteConsole("Enter new department capacity: ");
+            Capacity: string capacityStr = Console.ReadLine();
+                int capacity;
+                bool isParseCapacity = int.TryParse(capacityStr, out capacity);
 
-        //        if (name is null)
-        //        {
+                if (!isParseCapacity)
+                {
+                    ConsoleColor.Red.WriteConsole("Write capacity correctly");
+                    goto Capacity;
+                }
 
-        //        }
+                _departmentService.GetById(id).Name = name;
+                _departmentService.GetById(id).Capacity = capacity;
 
-        //        Department department = new()
-        //        {
-        //            Name = name,
-        //            Capacity = capacity
-        //        };
+                Department department = new()
+                {
+                    Name = name,
+                    Capacity = capacity
+                };
 
-        //        _departmentService.Create(department);
+                _departmentService.Update(department);
 
-
-        //        var result = _departmentService.Update();
-        //    }
-        //    catch (Exception)
-        //    {
-
-        //        throw;
-        //    }
-        //}
+                ConsoleColor.Green.WriteConsole($"Department Id : {_departmentService.GetById(id).Id}, Department Name : {_departmentService.GetById(id).Name}, Department Capacity: {_departmentService.GetById(id).Capacity}");
+            }
+            catch (Exception ex)
+            {
+                ConsoleColor.Red.WriteConsole(ex.Message);
+            }
+        }
     }
 }
