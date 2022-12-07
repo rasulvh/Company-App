@@ -11,7 +11,6 @@ namespace Company_App.Controller
 {
     public class EmployeeController
     {
-        Employee employee = new Employee();
         private readonly EmployeeService _employeeService;
         private readonly DepartmentService _departmentService;
 
