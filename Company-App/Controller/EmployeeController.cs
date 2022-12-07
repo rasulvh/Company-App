@@ -176,5 +176,45 @@ namespace Company_App.Controller
                 ConsoleColor.Red.WriteConsole(ex.Message);
             }
         }
+
+        public void Search()
+        {
+            ConsoleColor.DarkYellow.WriteConsole("Write employee name or surname: ");
+            string info = Console.ReadLine();
+
+            try
+            {
+                var result = _employeeService.Search(info);
+
+                foreach (var item in result)
+                {
+                    ConsoleColor.Green.WriteConsole($"Employee Id: {item.Id}, Name: {item.Name}, Surname: {item.Surname}, Age: {item.Age}, Address{item.Address}, Department Id: {item.Department.Id}");
+                }
+            }
+            catch (Exception ex)
+            {
+                ConsoleColor.Red.WriteConsole(ex.Message);
+            }
+        }
+
+        public void GetByDepartmentName()
+        {
+            ConsoleColor.DarkYellow.WriteConsole("Write department name: ");
+            string name = Console.ReadLine();
+
+            try
+            {
+                var result = _employeeService.Search(name);
+
+                foreach (var item in result)
+                {
+                    ConsoleColor.Green.WriteConsole($"Employee Id: {item.Id}, Name: {item.Name}, Surname: {item.Surname}, Age: {item.Age}, Address: {item.Address}, Department Id: {item.Department.Id}");
+                }
+            }
+            catch (Exception ex)
+            {
+                ConsoleColor.Red.WriteConsole(ex.Message);
+            }
+        }
     }
 }

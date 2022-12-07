@@ -15,7 +15,7 @@ namespace Service.Services.Interfaces
         Employee GetById(int? id);
         List<Employee> GetByAge(int? age);
         List<Employee> GetByDepartmentId(Department department);
-        List<Employee> GetByDepartmentName(Department department);
+        List<Employee> GetByDepartmentName(string name);
         List<Employee> Search(string searchText);
     }
 }

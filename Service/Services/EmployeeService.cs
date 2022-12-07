@@ -49,12 +49,16 @@ namespace Service.Services
 
         public List<Employee> GetByDepartmentId(Department department)
         {
-            throw new NotImplementedException();
+            if(department is null) throw new ArgumentNullException();
+
+            return _repo.GetAll(m => m.Id == department.Id);
         }
 
-        public List<Employee> GetByDepartmentName(Department department)
+        public List<Employee> GetByDepartmentName(string name)
         {
-            throw new NotImplementedException();
+            if (name is null) throw new ArgumentNullException();
+
+            return _repo.GetAll(m=> m.Department.Name.Contains(name));
         }
 
         public Employee GetById(int? id)
@@ -66,7 +70,9 @@ namespace Service.Services
 
         public List<Employee> Search(string searchText)
         {
-            throw new NotImplementedException();
+            if (searchText is null) return _repo.GetAll(null);
+
+            return _repo.GetAll(m=> m.Name.ToLower().Contains(searchText.ToLower()) || m.Surname.ToLower().Contains(searchText.ToLower()));
         }
 
         public Employee Update(int id, Employee employee)

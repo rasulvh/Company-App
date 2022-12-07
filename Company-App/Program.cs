@@ -61,8 +61,10 @@ static void Menus()
                 case 12:
                     break;
                 case 13:
+                    employeeController.GetByDepartmentName();
                     break;
                 case 14:
+                    employeeController.Search();
                     break;
                 case 15:
                     break;
