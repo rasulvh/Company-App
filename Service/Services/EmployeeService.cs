@@ -80,9 +80,10 @@ namespace Service.Services
             return _repo.GetAll(m=> m.Name.ToLower().Contains(searchText.ToLower()) || m.Surname.ToLower().Contains(searchText.ToLower()));
         }
 
-        public Employee Update(int id, Employee employee)
+        public Employee Update(Employee employee)
         {
-            throw new NotImplementedException();
+            _repo.Update(employee);
+            return employee;
         }
 
         

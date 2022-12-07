@@ -10,7 +10,7 @@ namespace Service.Services.Interfaces
     public interface IEmployeeService
     {
         Employee Create(Employee employee);
-        Employee Update(int id, Employee employee);
+        Employee Update(Employee employee);
         void Delete(int? id);
         Employee GetById(int? id);
         List<Employee> GetByAge(int? age);

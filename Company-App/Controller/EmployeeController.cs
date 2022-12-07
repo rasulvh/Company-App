@@ -258,5 +258,59 @@ namespace Company_App.Controller
                 ConsoleColor.Red.WriteConsole(ex.Message);
             }
         }
+
+        public void Update()
+        {
+            ConsoleColor.DarkYellow.WriteConsole("Write employee id that you want to update: ");
+        Id: string idStr = Console.ReadLine();
+            int id;
+            bool isParseId = int.TryParse(idStr, out id);
+
+            try
+            {
+                ConsoleColor.DarkYellow.WriteConsole("Enter new employee name: ");
+                string name = Console.ReadLine();
+
+                ConsoleColor.DarkYellow.WriteConsole("Enter new employee surname: ");
+                string surname = Console.ReadLine();
+
+                ConsoleColor.DarkYellow.WriteConsole("Enter new employee age: ");
+            Capacity: string ageStr = Console.ReadLine();
+                int age;
+                bool isParseAge = int.TryParse(ageStr, out age);
+
+                ConsoleColor.DarkYellow.WriteConsole("Enter new employee address: ");
+                string address = Console.ReadLine();
+
+
+                if (!isParseAge)
+                {
+                    ConsoleColor.Red.WriteConsole("Write age correctly");
+                    goto Capacity;
+                }
+
+                _employeeService.GetById(id).Name = name;
+                _employeeService.GetById(id).Surname = surname;
+                _employeeService.GetById(id).Age = age;
+                _employeeService.GetById(id).Address = address;
+
+
+                Employee employee = new()
+                {
+                    Name = name,
+                    Surname = surname,
+                    Age = age,
+                    Address = address
+                };
+
+                _employeeService.Update(employee);
+
+                ConsoleColor.Green.WriteConsole($"Employee Id : {_employeeService.GetById(id).Id}, Employee Name : {_employeeService.GetById(id).Name}, Employee Surname: {_employeeService.GetById(id).Surname},Employee Age: {_employeeService.GetById(id).Age}, Employee Address: {_employeeService.GetById(id).Address}");
+            }
+            catch (Exception ex)
+            {
+                ConsoleColor.Red.WriteConsole(ex.Message);
+            }
+        }
     }
 }

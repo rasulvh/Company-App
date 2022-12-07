@@ -163,9 +163,8 @@ namespace Company_App.Controller
             {
                 ConsoleColor.DarkYellow.WriteConsole("Enter new department name: ");
                 string name = Console.ReadLine();
-
                 ConsoleColor.DarkYellow.WriteConsole("Enter new department capacity: ");
-            Capacity: string capacityStr = Console.ReadLine();
+                Capacity: string capacityStr = Console.ReadLine();
                 int capacity;
                 bool isParseCapacity = int.TryParse(capacityStr, out capacity);
 

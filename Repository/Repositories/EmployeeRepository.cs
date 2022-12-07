@@ -34,7 +34,12 @@ namespace Repository.Repositories
 
         public void Update(Employee entity)
         {
-            throw new NotImplementedException();
+            if(entity is null) throw new ArgumentNullException();
+
+            entity.Name = employee.Name;
+            entity.Surname= employee.Surname;
+            entity.Age= employee.Age;
+            entity.Address= employee.Address;
         }
     }
 }

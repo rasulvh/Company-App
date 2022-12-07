@@ -52,6 +52,7 @@ static void Menus()
                     employeeController.Delete();
                     break;
                 case 9:
+                    employeeController.Update();
                     break;
                 case 10:
                     employeeController.GetByAge();
