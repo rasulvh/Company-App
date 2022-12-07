@@ -14,8 +14,9 @@ namespace Service.Services.Interfaces
         void Delete(int? id);
         Employee GetById(int? id);
         List<Employee> GetByAge(int? age);
-        List<Employee> GetByDepartmentId(Department department);
+        List<Employee> GetByDepartmentId(int? id);
         List<Employee> GetByDepartmentName(string name);
         List<Employee> Search(string searchText);
+        int Count();
     }
 }

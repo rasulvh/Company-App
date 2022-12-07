@@ -216,5 +216,47 @@ namespace Company_App.Controller
                 ConsoleColor.Red.WriteConsole(ex.Message);
             }
         }
+
+        public void GetByDepartmentId()
+        {
+            ConsoleColor.DarkYellow.WriteConsole("Write department id: ");
+        Id: string idStr = Console.ReadLine();
+            int id;
+            bool isParseId = int.TryParse(idStr, out id);
+
+            try
+            {
+                if (isParseId)
+                {
+                    var result = _employeeService.GetByDepartmentId(id);
+
+                    foreach (var item in result)
+                    {
+                        ConsoleColor.Green.WriteConsole($"Employee Id: {item.Id}, Name: {item.Name}, Surname: {item.Surname}, Age: {item.Age}, Address: {item.Address}, Department Id: {item.Department.Id}");
+                    }
+                }
+                else
+                {
+                    ConsoleColor.Red.WriteConsole("Please write correct id: ");
+                    goto Id;
+                }
+            }
+            catch (Exception ex)
+            {
+                ConsoleColor.Red.WriteConsole(ex.Message);
+            }
+        }
+
+        public void GetCount()
+        {
+            try
+            {
+                ConsoleColor.Green.WriteConsole($"Count: {_employeeService.Count()}");
+            }
+            catch (Exception ex)
+            {
+                ConsoleColor.Red.WriteConsole(ex.Message);
+            }
+        }
     }
 }

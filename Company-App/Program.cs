@@ -59,6 +59,7 @@ static void Menus()
                     employeeController.GetById();
                     break;
                 case 12:
+                    employeeController.GetByDepartmentId();
                     break;
                 case 13:
                     employeeController.GetByDepartmentName();
@@ -67,6 +68,7 @@ static void Menus()
                     employeeController.Search();
                     break;
                 case 15:
+                    employeeController.GetCount();
                     break;
                 default:
                     ConsoleColor.Red.WriteConsole("Please select true option: ");

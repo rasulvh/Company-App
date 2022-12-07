@@ -21,6 +21,11 @@ namespace Service.Services
             _repo = new EmployeeRepository();
         }
 
+        public int Count()
+        {
+            return _repo.GetAll(null).Count;
+        }
+
         public Employee Create(Employee employee)
         {
             employee.Id = _count;
@@ -47,11 +52,11 @@ namespace Service.Services
             return _repo.GetAll(m => m.Age == age);
         }
 
-        public List<Employee> GetByDepartmentId(Department department)
+        public List<Employee> GetByDepartmentId(int? id)
         {
-            if(department is null) throw new ArgumentNullException();
+            if(id is null) throw new ArgumentNullException();
 
-            return _repo.GetAll(m => m.Id == department.Id);
+            return _repo.GetAll(m => m.Id == id);
         }
 
         public List<Employee> GetByDepartmentName(string name)
@@ -79,5 +84,7 @@ namespace Service.Services
         {
             throw new NotImplementedException();
         }
+
+        
     }
 }
