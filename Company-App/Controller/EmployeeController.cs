@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Company_App.Controller
@@ -22,6 +23,12 @@ namespace Company_App.Controller
 
         public void Add()
         {
+            if (_departmentService.Count() == 0)
+            {
+                ConsoleColor.Red.WriteConsole("Before creating employee please create a department");
+                return;
+            }
+
             try
             {
                 ConsoleColor.DarkYellow.WriteConsole("Add employee name: ");

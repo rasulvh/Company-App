@@ -39,8 +39,8 @@ namespace Repository.Repositories
         {
             if(entity is null) throw new ArgumentNullException();
 
-            entity.Name = department.Name;
-            entity.Capacity = department.Capacity;
+            //entity.Name = department.Name;
+            //entity.Capacity = department.Capacity;
         }
     }
 }

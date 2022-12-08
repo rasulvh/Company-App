@@ -23,6 +23,11 @@ namespace Service.Services
             _repo = new DepartmentRepository();
         }
 
+        public int Count()
+        {
+            return _repo.GetAll(null).Count();
+        }
+
         public Department Create(Department department)
         {
             department.Id = _count;

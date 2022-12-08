@@ -15,5 +15,6 @@ namespace Service.Services.Interfaces
         List<Department> GetAll();
         List<Department> Search(string searchText);
         Department Update(Department department);
+        int Count();
     }
 }
