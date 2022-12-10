@@ -144,6 +144,11 @@ namespace Company_App.Controller
 
             string searchText = Console.ReadLine();
 
+            //if (searchText is string.Empty)
+            //{
+
+            //}
+
             var result = _departmentService.Search(searchText);
 
             foreach (var item in result)
@@ -154,20 +159,18 @@ namespace Company_App.Controller
 
         public void Update()
         {
-            Department department = new Department();
-
             ConsoleColor.DarkYellow.WriteConsole("Write department id that you want to update: ");
         Id: string idStr = Console.ReadLine();
             int id;
             bool isParseId = int.TryParse(idStr, out id);
-
-            ConsoleColor.DarkYellow.WriteConsole("If you don't want to update name leave it empty, if you don't want to update capacity write 0: ");
 
             if (!isParseId)
             {
                 ConsoleColor.Red.WriteConsole("Please write id correctly: ");
                 goto Id;
             }
+
+            ConsoleColor.DarkYellow.WriteConsole("If you don't want to update name leave it empty, if you don't want to update capacity write 0: ");
 
             try
             {
@@ -178,35 +181,52 @@ namespace Company_App.Controller
                 }
 
                 ConsoleColor.DarkYellow.WriteConsole("Enter new department name: ");
-                string name = Console.ReadLine();
+            Name: string name = Console.ReadLine();
                 ConsoleColor.DarkYellow.WriteConsole("Enter new department capacity: ");
-                Capacity: string capacityStr = Console.ReadLine();
+            Capacity: string capacityStr = Console.ReadLine();
                 int capacity;
                 bool isParseCapacity = int.TryParse(capacityStr, out capacity);
 
                 if (!isParseCapacity)
                 {
-                    ConsoleColor.Red.WriteConsole("Write capacity correctly");
+                    ConsoleColor.Red.WriteConsole("Write capacity correctly: ");
                     goto Capacity;
                 }
 
-                //Update edende name-i update edende capacity update olunmur
+                Department department = _departmentService.GetById(id);
 
-                if (name != "")
+                if (name == null || name == string.Empty)
+                {
+                    if (capacity == 0)
+                    {
+                        ConsoleColor.Green.WriteConsole($"Department Id : {_departmentService.GetById(id).Id}, Department Name : {_departmentService.GetById(id).Name}, Department Capacity: {_departmentService.GetById(id).Capacity}");
+                    }
+                    if (capacity != 0)
+                    {
+                        _departmentService.GetById(id).Capacity = capacity;
+
+                        ConsoleColor.Green.WriteConsole($"Department Id : {_departmentService.GetById(id).Id}, Department Name : {_departmentService.GetById(id).Name}, Department Capacity: {_departmentService.GetById(id).Capacity}");
+
+                        _departmentService.Update(department);
+                    }
+                }
+                else if (name != null || name != string.Empty)
                 {
                     _departmentService.GetById(id).Name = name;
-                    department.Name= name;
+
+                    if (capacity == 0)
+                    {
+                        ConsoleColor.Green.WriteConsole($"Department Id : {_departmentService.GetById(id).Id}, Department Name : {_departmentService.GetById(id).Name}, Department Capacity: {_departmentService.GetById(id).Capacity}");
+                    }
+                    if (capacity != 0)
+                    {
+                        _departmentService.GetById(id).Capacity = capacity;
+
+                        ConsoleColor.Green.WriteConsole($"Department Id : {_departmentService.GetById(id).Id}, Department Name : {_departmentService.GetById(id).Name}, Department Capacity: {_departmentService.GetById(id).Capacity}"); 
+
+                        _departmentService.Update(department);
+                    }
                 }
-
-                if (capacity != 0)
-                {
-                    _departmentService.GetById(id).Capacity = capacity;
-                    department.Capacity = capacity;
-
-                    _departmentService.Update(department);
-                }
-
-                ConsoleColor.Green.WriteConsole($"Department Id : {_departmentService.GetById(id).Id}, Department Name : {_departmentService.GetById(id).Name}, Department Capacity: {_departmentService.GetById(id).Capacity}");
             }
             catch (Exception ex)
             {

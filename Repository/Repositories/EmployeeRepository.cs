@@ -11,8 +11,6 @@ namespace Repository.Repositories
 {
     public class EmployeeRepository : IRepository<Employee>
     {
-        Employee employee = new Employee();
-
         public void Add(Employee entity)
         {
             if (entity is null) throw new ArgumentNullException();
@@ -34,12 +32,31 @@ namespace Repository.Repositories
 
         public void Update(Employee entity)
         {
-            if(entity is null) throw new ArgumentNullException();
+            Employee employee = Get(m => m.Id == entity.Id);
 
-            entity.Name = employee.Name;
-            entity.Surname= employee.Surname;
-            entity.Age= employee.Age;
-            entity.Address= employee.Address;
+            if(entity is null) throw new ArgumentNullException();
+            if (employee is null) throw new ArgumentNullException();
+
+            if (!string.IsNullOrEmpty(entity.Name))
+            {
+                employee.Name = entity.Name;
+            }
+            if (!string.IsNullOrEmpty(entity.Surname))
+            {
+                employee.Surname = entity.Surname;
+            }
+            if (!string.IsNullOrEmpty(entity.Address))
+            {
+                employee.Address = entity.Address;
+            }
+            if (entity.Age > 20)
+            {
+                employee.Age = entity.Age;
+            }
+            if (entity.Department != null)
+            {
+                employee.Department.Id = entity.Department.Id;
+            }
         }
     }
 }
