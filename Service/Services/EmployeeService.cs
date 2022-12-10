@@ -45,6 +45,11 @@ namespace Service.Services
             _repo.Delete(employee);
         }
 
+        public List<Employee> GetAll()
+        {
+            return _repo.GetAll(null);
+        }
+
         public List<Employee> GetByAge(int? age)
         {
             if(age is null) throw new ArgumentNullException();
@@ -56,7 +61,7 @@ namespace Service.Services
         {
             if(id is null) throw new ArgumentNullException();
 
-            return _repo.GetAll(m => m.Id == id);
+            return _repo.GetAll(m => m.Department.Id == id);
         }
 
         public List<Employee> GetByDepartmentName(string name)

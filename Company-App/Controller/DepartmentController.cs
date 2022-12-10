@@ -142,18 +142,19 @@ namespace Company_App.Controller
         {
             ConsoleColor.DarkYellow.WriteConsole("Add department name: ");
 
-            string searchText = Console.ReadLine();
+            strText: string searchText = Console.ReadLine();
 
-            //if (searchText is string.Empty)
-            //{
-
-            //}
+            if (searchText is "")
+            {
+                ConsoleColor.Red.WriteConsole("Please fill the line: ");
+                goto strText;
+            }
 
             var result = _departmentService.Search(searchText);
 
             foreach (var item in result)
             {
-                ConsoleColor.Green.WriteConsole($"Id: {item.Id}, Name: {item.Name}, Seat count: {item.Capacity}");
+                ConsoleColor.Green.WriteConsole($"Id: {item.Id}, Name: {item.Name}, Capacity: {item.Capacity}");
             }
         }
 
@@ -232,6 +233,11 @@ namespace Company_App.Controller
             {
                 ConsoleColor.Red.WriteConsole(ex.Message);
             }
+        }
+
+        public int GetCount()
+        {
+            return _departmentService.Count();
         }
     }
 }

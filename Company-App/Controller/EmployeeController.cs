@@ -1,4 +1,5 @@
 ﻿using Domain.Models;
+using Repository.Data;
 using Service.Helpers;
 using Service.Services;
 using System;
@@ -23,12 +24,6 @@ namespace Company_App.Controller
             _employeeService = new EmployeeService();
             _departmentService = new DepartmentService();
         }
-
-        //Optional: Daxil olunan age-e employee yoxdusa cixarsin ki not found (Get by age method)
-
-        //Get by dep. name duzelt!!!
-
-        //Get by dep. id if result is null duzelt!!! optional
 
         public void Add()
         {
@@ -73,7 +68,7 @@ namespace Company_App.Controller
                 ConsoleColor.DarkYellow.WriteConsole("Add employee address: ");
             EmpAddress: string address = Console.ReadLine();
 
-                if (address == null || Regex.IsMatch(address, @"^[a-z]+\s*[0-9]*$"))
+                if (address == string.Empty || Regex.IsMatch(address, @"^[a-z]+\s*[0-9]*$"))
                 {
                     ConsoleColor.Red.WriteConsole("Enter employee address correctly: ");
                     goto EmpAddress;
@@ -86,6 +81,12 @@ namespace Company_App.Controller
 
                 if (isParseDepartamentId)
                 {
+                    if (_departmentService.GetById(departmentId) == null)
+                    {
+                        ConsoleColor.Red.WriteConsole("No department found for this id, please try again: ");
+                        goto EmpDepartment;
+                    }
+
                     Employee employee = new Employee()
                     {
                         Name = name,
@@ -97,6 +98,7 @@ namespace Company_App.Controller
 
                     _employeeService.Create(employee);
                     ConsoleColor.Green.WriteConsole($"Employee Id: {employee.Id}, Name: {employee.Name}, Surname: {employee.Surname}, Age: {employee.Age}, Address: {employee.Address}, Department Id: {employee.Department.Id}");
+                    ConsoleColor.Green.WriteConsole("Successfully created");
                 }
                 else
                 {
@@ -149,7 +151,9 @@ namespace Company_App.Controller
             {
                 if (isParseAge)
                 {
-                    foreach (var item in _employeeService.GetByAge(age))
+                    var result = _employeeService.GetByAge(age);
+
+                    foreach (var item in result)
                     {
                         ConsoleColor.Green.WriteConsole($"Id: {item.Id}, Name: {item.Name}, Surname: {item.Surname}, Age: {item.Age}, Address: {item.Address}, Department Id: {item.Department}");
                     }
@@ -195,6 +199,21 @@ namespace Company_App.Controller
             }
         }
 
+        public void GetAll()
+        {
+            try
+            {
+                foreach (var item in _employeeService.GetAll())
+                {
+                    ConsoleColor.Green.WriteConsole($"Employee Id: {item.Id}, Name: {item.Name}, Surname: {item.Surname}, Age: {item.Age}, Address: {item.Address}, Department Id: {item.Department.Id}");
+                }
+            }
+            catch (Exception ex)
+            {
+                ConsoleColor.Red.WriteConsole(ex.Message);
+            }
+        }
+
         public void Search()
         {
             ConsoleColor.DarkYellow.WriteConsole("Write employee name or surname: ");
@@ -227,13 +246,19 @@ namespace Company_App.Controller
             ConsoleColor.DarkYellow.WriteConsole("Write department name: ");
         Name: string name = Console.ReadLine();
 
+            if (name is "")
+            {
+                ConsoleColor.Red.WriteConsole("Please fill the line: ");
+                goto Name;
+            }
+
             try
             {
-                var result = _employeeService.Search(name);
+                var result = _employeeService.GetByDepartmentName(name);
 
                 foreach (var item in result)
                 {
-                    ConsoleColor.Green.WriteConsole($"Employee Id: {item.Id}, Name: {item.Name}, Surname: {item.Surname}, Age: {item.Age}, Address: {item.Address}, Department Id: {item.Department.Id}");
+                    ConsoleColor.Green.WriteConsole($"Employee Id: {item.Id}, Name: {item.Name}, Surname: {item.Surname}, Age: {item.Age}, Address: {item.Address}, Department Name: {item.Department.Name}");
                 }
             }
             catch (Exception ex)
@@ -362,7 +387,6 @@ namespace Company_App.Controller
                     goto Age;
                 }
 
-
                 ConsoleColor.DarkYellow.WriteConsole("Enter new department id: ");
             DepId: string depIdStr = Console.ReadLine();
                 int depId;
@@ -415,6 +439,7 @@ namespace Company_App.Controller
 
                 _employeeService.Update(id, employee1);
 
+                ConsoleColor.Green.WriteConsole("Successfully updated");
             }
 
             catch (Exception ex)

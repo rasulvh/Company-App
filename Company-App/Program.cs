@@ -14,10 +14,28 @@ static void Menus()
 
     while (true)
     {
-        ConsoleColor.Cyan.WriteConsole("Select one option");
-        Console.WriteLine("-----------------");
-        ConsoleColor.Cyan.WriteConsole("Department options: 1.Create, 2.Delete, 3.Update, 4.Get department by id, 5.Get all, 6.Search");
-        ConsoleColor.Cyan.WriteConsole("Employee options: 7.Create, 8.Delate, 9.Update, 10.Get by age, 11.Get by id, 12.Get by department id, 13.Get all by department name, 14.Search, 15.Get count");
+        DirectStart: ConsoleColor.DarkBlue.WriteConsole("Select one option");
+        ConsoleColor.Red.WriteConsole("-----------------");
+        ConsoleColor.DarkBlue.WriteConsole("Department options:\n" +
+            "1.Create\n" +
+            "2.Delete\n" +
+            "3.Update\n" +
+            "4.Get department by id\n" +
+            "5.Get all\n" +
+            "6.Search\n");
+        ConsoleColor.DarkBlue.WriteConsole("Employee options:\n" +
+            "7.Create\n" +
+            "8.Delate\n" +
+            "9.Update\n" +
+            "10.Get by age\n" +
+            "11.Get by id\n" +
+            "12.Get by department id\n" +
+            "13.Get all by department name\n" +
+            "14.Get all\n" +
+            "15.Search\n" +
+            "16.Get count\n");
+
+        ConsoleColor.DarkRed.WriteConsole("If you want to exit press 0\n");
 
         Option:  string optionStr = Console.ReadLine();
         int option;
@@ -27,6 +45,8 @@ static void Menus()
         {
             switch (option)
             {
+                case 0:
+                    goto Exit;
                 case 1:
                     departmentController.Create();
                     break;
@@ -67,9 +87,12 @@ static void Menus()
                     employeeController.GetByDepartmentName();
                     break;
                 case 14:
-                    employeeController.Search();
+                    employeeController.GetAll();
                     break;
                 case 15:
+                    employeeController.Search();
+                    break;
+                case 16:
                     employeeController.GetCount();
                     break;
                 default:
@@ -82,5 +105,8 @@ static void Menus()
             ConsoleColor.Red.WriteConsole("Please select true option: ");
             goto Option;
         }
+
+        goto DirectStart;
+    Exit: break;
     }
 }
