@@ -100,7 +100,7 @@ namespace Company_App.Controller
                 ConsoleColor.DarkYellow.WriteConsole("Add employee address: ");
             EmpAddress: string address = Console.ReadLine();
 
-                if (address == string.Empty || !Regex.IsMatch(address, @"([\w]{2,} *[0-9]*[.\-,]*[^~@#$%^&*()_+=\|:;'></?])+"))
+                if (address == string.Empty || !Regex.IsMatch(address, @"([\w]{2,} *[0-9]*[.\-,]*[^~@#$%^&*()_+={}!\|:;'></?])+"))
                 {
                     ConsoleColor.Red.WriteConsole("Enter employee address correctly: ");
                     goto EmpAddress;
