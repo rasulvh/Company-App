@@ -16,7 +16,7 @@ static void Menus()
     {
         DirectStart: ConsoleColor.DarkBlue.WriteConsole("Select one option");
         ConsoleColor.Red.WriteConsole("-----------------");
-        ConsoleColor.Red.WriteConsole("If you want to exit write 0");
+        ConsoleColor.Red.WriteConsole("If you want to exit write 0\n");
 
         if (departmentController.GetCount() == 0)
         {
@@ -41,7 +41,7 @@ static void Menus()
                     break;
                 default:
                     ConsoleColor.Red.WriteConsole("Please select true option: ");
-                    break;
+                    goto FirstOption;
             }
         }
         else

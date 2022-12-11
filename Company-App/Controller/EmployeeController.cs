@@ -100,7 +100,7 @@ namespace Company_App.Controller
                 ConsoleColor.DarkYellow.WriteConsole("Add employee address: ");
             EmpAddress: string address = Console.ReadLine();
 
-                if (address == string.Empty || !Regex.IsMatch(address, @"([\w]{2,} *[0-9]*[.\-,]*[^~@#$%^&*()_+={}!\|:;'></?])+"))
+                if (address == string.Empty || !Regex.IsMatch(address, @"^[A-Za-z0-9,]+(?:\s[A-Za-z0-9',_-]+)*$"))
                 {
                     ConsoleColor.Red.WriteConsole("Enter employee address correctly: ");
                     goto EmpAddress;
@@ -168,6 +168,12 @@ namespace Company_App.Controller
                 if (isParseAge)
                 {
                     var result = _employeeService.GetByAge(age);
+
+                    if (result.Count is 0)
+                    {
+                        ConsoleColor.Red.WriteConsole("No employee found for this age");
+                        return;
+                    }
 
                     foreach (var item in result)
                     {
@@ -356,7 +362,7 @@ namespace Company_App.Controller
         {
             if (_employeeService.Count() == 0)
             {
-                ConsoleColor.Red.WriteConsole("Before updeting employee, create employee\n");
+                ConsoleColor.Red.WriteConsole("Before updating employee, create employee\n");
                 return;
             }
 
@@ -379,15 +385,21 @@ namespace Company_App.Controller
                 goto Id;
             }
 
+            Employee employee1 = new Employee();
+
         DirectDepId: ConsoleColor.DarkYellow.WriteConsole("Enter new department id: ");
         DepId: string depIdStr = Console.ReadLine();
             int depId;
             bool isParseDepId = int.TryParse(depIdStr, out depId);
 
-            if (depIdStr is null)
+            if (depIdStr is "")
             {
                 goto DirectName;
             }
+
+            var result1 = _departmentService.GetById(depId);
+
+            bool isDepIdNull = string.IsNullOrEmpty(depIdStr);
 
             if (!isParseDepId)
             {
@@ -395,21 +407,29 @@ namespace Company_App.Controller
                 goto DepId;
             }
 
-            var result = _departmentService.GetById(depId);
+            var result2 = _departmentService.GetById(depId);
 
-            if (result == null)
+            if (result2 == null)
             {
                 ConsoleColor.Red.WriteConsole("No department found, please try again: ");
                 goto DepId;
             }
 
-            if (_employeeService.GetByDepartmentId(depId).Count <= _departmentService.GetById(depId).Capacity)
+            if (_employeeService.GetByDepartmentId(depId).Count < _departmentService.GetById(depId).Capacity)
+            {
+
+                if (!isDepIdNull)
+                {
+                    employee1.Department = result1;
+                }
+            }
+            else
             {
                 ConsoleColor.Red.WriteConsole("This department is full, please try another department\n");
                 return;
             }
 
-            ConsoleColor.DarkYellow.WriteConsole("If you don't want to update name, surname or address leave it empty, if you don't want to update age write 0\n");
+            ConsoleColor.DarkYellow.WriteConsole("If you don't want to update name, surname, age or address leave it empty\n");
 
         DirectName: ConsoleColor.DarkYellow.WriteConsole("Enter new employee name: ");
         Name: string name = Console.ReadLine().Replace(" ", "");
@@ -425,7 +445,6 @@ namespace Company_App.Controller
                     ConsoleColor.Red.WriteConsole("Enter employee name correctly: ");
                     goto Name;
                 }
-
 
             DirectSurname: ConsoleColor.DarkYellow.WriteConsole("Enter new employee surname: ");
             Surname: string surname = Console.ReadLine().Replace(" ", "");
@@ -448,7 +467,7 @@ namespace Company_App.Controller
                 {
                     goto DirectAge;
                 }
-                if (!Regex.IsMatch(address, @"([\w]{2,} *[0-9]*[.\-,]*[^@#$%/;:'><?*\^()_!])+"))
+                if (!Regex.IsMatch(address, @"^[A-Za-z0-9,]+(?:\s[A-Za-z0-9',_-]+)*$"))
                 {
                     ConsoleColor.Red.WriteConsole("Enter employee address correctly: ");
                     goto Address;
@@ -461,7 +480,7 @@ namespace Company_App.Controller
 
                 if (ageStr is "")
                 {
-                    goto DirectDepId;
+                    goto Direct;
                 }
                 if (!isParseAge)
                 {
@@ -469,15 +488,18 @@ namespace Company_App.Controller
                     goto Age;
                 }
 
-                var result2 = _departmentService.GetById(depId);
+                if (age < 18 || age > 70)
+                {
+                    ConsoleColor.Red.WriteConsole("Employee age must be greater than 18 and less than 70: ");
+                    goto Age;
+                }
+
+                Direct:
 
                 bool isNameNull = string.IsNullOrEmpty(name);
                 bool isSurnameNull = string.IsNullOrEmpty(surname);
                 bool isAddressNull = string.IsNullOrEmpty(address);
                 bool isAgeNull = string.IsNullOrEmpty(ageStr);
-                bool isDepIdNull = string.IsNullOrEmpty(depIdStr);
-
-                Employee employee1 = new Employee();
 
                 if (!isNameNull)
                 {
@@ -494,10 +516,6 @@ namespace Company_App.Controller
                 if (!isAgeNull)
                 {
                     employee1.Age = age;
-                }
-                if (!isDepIdNull)
-                {
-                    employee1.Department = result2;
                 }
 
                 _employeeService.Update(id, employee1);
