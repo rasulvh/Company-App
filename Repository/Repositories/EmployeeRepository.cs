@@ -49,13 +49,13 @@ namespace Repository.Repositories
             {
                 employee.Address = entity.Address;
             }
-            if (entity.Age > 20)
+            if (entity.Age > 18 || entity.Age < 70)
             {
                 employee.Age = entity.Age;
             }
             if (entity.Department != null)
             {
-                employee.Department.Id = entity.Department.Id;
+                employee.Department = entity.Department;
             }
         }
     }

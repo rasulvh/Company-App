@@ -68,7 +68,7 @@ namespace Service.Services
         {
             if (name is null) throw new ArgumentNullException();
 
-            return _repo.GetAll(m=> m.Department.Name.Contains(name));
+            return _repo.GetAll(m=> m.Department.Name == name);
         }
 
         public Employee GetById(int? id)

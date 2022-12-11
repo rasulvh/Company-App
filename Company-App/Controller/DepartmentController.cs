@@ -34,6 +34,12 @@ namespace Company_App.Controller
 
                 if (isParseCapacity)
                 {
+                    if (capacity < 1)
+                    {
+                        ConsoleColor.Red.WriteConsole("Capacity must be at least 1, please try again: ");
+                        goto Capacity;
+                    }
+
                     Department department = new()
                     {
                         Name = name,
@@ -161,7 +167,7 @@ namespace Company_App.Controller
         public void Update()
         {
             ConsoleColor.DarkYellow.WriteConsole("Write department id that you want to update: ");
-        Id: string idStr = Console.ReadLine();
+            Id: string idStr = Console.ReadLine();
             int id;
             bool isParseId = int.TryParse(idStr, out id);
 
@@ -171,7 +177,7 @@ namespace Company_App.Controller
                 goto Id;
             }
 
-            ConsoleColor.DarkYellow.WriteConsole("If you don't want to update name leave it empty, if you don't want to update capacity write 0: ");
+            ConsoleColor.DarkYellow.WriteConsole("If you don't want to update name or capacity leave it empty: ");
 
             try
             {
@@ -182,27 +188,33 @@ namespace Company_App.Controller
                 }
 
                 ConsoleColor.DarkYellow.WriteConsole("Enter new department name: ");
-            Name: string name = Console.ReadLine();
+                Name: string name = Console.ReadLine();
                 ConsoleColor.DarkYellow.WriteConsole("Enter new department capacity: ");
-            Capacity: string capacityStr = Console.ReadLine();
+                Capacity: string capacityStr = Console.ReadLine();
                 int capacity;
                 bool isParseCapacity = int.TryParse(capacityStr, out capacity);
 
+                if (capacityStr == "")
+                {
+                    goto DirectCapacity;
+                }
                 if (!isParseCapacity)
                 {
                     ConsoleColor.Red.WriteConsole("Write capacity correctly: ");
                     goto Capacity;
                 }
 
+                DirectCapacity:
+
                 Department department = _departmentService.GetById(id);
 
                 if (name == null || name == string.Empty)
                 {
-                    if (capacity == 0)
+                    if (capacityStr == "")
                     {
                         ConsoleColor.Green.WriteConsole($"Department Id : {_departmentService.GetById(id).Id}, Department Name : {_departmentService.GetById(id).Name}, Department Capacity: {_departmentService.GetById(id).Capacity}");
                     }
-                    if (capacity != 0)
+                    else if (capacityStr != "")
                     {
                         _departmentService.GetById(id).Capacity = capacity;
 
@@ -215,11 +227,11 @@ namespace Company_App.Controller
                 {
                     _departmentService.GetById(id).Name = name;
 
-                    if (capacity == 0)
+                    if (capacityStr == "")
                     {
                         ConsoleColor.Green.WriteConsole($"Department Id : {_departmentService.GetById(id).Id}, Department Name : {_departmentService.GetById(id).Name}, Department Capacity: {_departmentService.GetById(id).Capacity}");
                     }
-                    if (capacity != 0)
+                    else if (capacityStr != "")
                     {
                         _departmentService.GetById(id).Capacity = capacity;
 
